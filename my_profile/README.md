@@ -37,4 +37,4 @@ The core philosophy of this project is **authentic alignment**:
 ---
 
 ## 🔒 Privacy Notice
-Your `candidate_profile.md` and any PDFs inside `old_cv/` are **automatically ignored by `.gitignore`**. Your personal contact information, phone numbers, and addresses will **never** be committed to your public Git repository.
+Your `candidate_profile.md`, `email_config.json` (mailbox app password), and any PDFs inside `old_cv/` are **automatically ignored by `.gitignore`**. Your personal contact information, phone numbers, addresses, and email credentials will **never** be committed to your public Git repository. Only `email_config.example.json` (the empty template) is shared.

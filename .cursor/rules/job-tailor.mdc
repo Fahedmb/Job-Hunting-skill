@@ -15,4 +15,6 @@ globs: applications/**/*, templates/**/*, my_profile/**/*
   6. Generate matching 1-page Cover Letter (`Cover_Letter_<Candidate>.tex`) from `templates/cover_letter_template_*.tex`.
   7. Compile with `python tools/compile_latex.py <file.tex>` and verify 1-page limit.
   8. If LaTeX is not installed, run `python tools/setup_latex.py --auto-install` or point to Overleaf.com.
-  9. Draft 3 outreach email variants and update `applications/applications_tracker.md`.
+  9. Draft 3 outreach email variants to `outreach_emails.md` and update `applications/applications_tracker.md`.
+- **Token-saving confirmation gates (ask, never assume YES):** `Want tailored CV? [y/n]` after fit analysis; `Want cover letter? [y/n]` after CV compile; `Found email <to>. Create a mail draft for you? [imap/eml/no]` after compile(s) and only if the posting contains an email.
+- **Email draft creation (GATED, never auto-send):** identity + IMAP from `my_profile/email_config.json` (see `configuration4Draft.md`); run `python tools/create_email_draft.py --provider <choice> --yes --from-outreach "applications/<Folder>/outreach_emails.md" --attach <CV.pdf> --attach <Cover.pdf>`.

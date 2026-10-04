@@ -60,7 +60,17 @@ $$\text{Bullet} = \textbf{[Strong Active Verb]} + \textbf{[Domain/Technical Stac
 
 ## 3. End-to-End Application Workflow
 
-Whenever a user provides a job description or URL, execute these steps systematically:
+Whenever a user provides a job description or URL, execute these steps systematically.
+
+> **Token-saving rule (confirmation gates):** generating a CV (~2-4k tokens),
+> cover letter (~1-2k), and web research (~3k) is expensive. After each cheap
+> step, STOP and ask for explicit YES/NO before continuing:
+> 1. After fit analysis: `Want tailored CV? [y/n]`
+> 2. After CV compile: `Want cover letter? [y/n]`
+> 3. After compile(s): `Found email <to>. Create a mail draft for you? [imap/eml/no]`
+> Never run a gated step without explicit user confirmation. Default to the
+> cheapest path (`.eml`, no credentials) unless the user picks imap.
+> Setup details: see `configuration4Draft.md`.
 
 ### Step 0: Verify Candidate Profile
 Confirm `my_profile/candidate_profile.md` exists. If not, guide the user to drop their CV in `my_profile/old_cv/` or provide their details, then generate it.
@@ -124,6 +134,23 @@ Draft a ready-to-send application package in the chat:
 - **Variant A (Official HR / Portal Application):** Formal email with structured value proposition and resume attachment mention.
 - **Variant B (Direct Decision Maker Pitch):** Direct, punchy message to the Founder, CTO, or Hiring Manager.
 - **Variant C (Short LinkedIn Note):** Concise connection message (< 300 characters or < 150 words).
+- Save all three variants to `applications/<Company> - <Role>/outreach_emails.md`.
+
+### Step 6b: Email Draft Creation (GATED — user confirmation required)
+Only after the user answers YES to
+`Found email <to>. Create a mail draft for you? [imap/eml/no]`:
+(Single source of truth: `my_profile/email_config.json` holds sender
+identity + IMAP connection — user setup is in `configuration4Draft.md`.
+Content comes from the application folder, never from flags.)
+1. **`imap` (cloud draft, any provider):** only if `email_config.json` is
+   complete, run
+   `python tools/create_email_draft.py --provider imap --yes --from-outreach "<folder>/outreach_emails.md" --attach "<folder>/CV_*.pdf" --attach "<folder>/Cover_*.pdf"`.
+   On failure, the script falls back to `.eml` automatically.
+2. **Default (`eml`, zero-auth):** run with `--provider eml`
+   → produces `<folder>/Draft_Email.eml` (always works, no credentials).
+3. **Never auto-send.** The tool only creates drafts (`--yes` flag is the
+   explicit-consent gate; the script refuses without it). User reviews the
+   draft in their mailbox before sending.
 
 ### Step 7: Update Central Applications Tracker
 Append an entry to `applications/applications_tracker.md`:

@@ -67,8 +67,12 @@ Most AI resume builders create generic, uninspired summaries and hallucinate ski
   ├─► Formal HR / Portal Application Email
   ├─► Direct Pitch to Founder / CTO / Hiring Manager
   └─► Short LinkedIn Connection Note (< 300 chars)
-                     │
-                     ▼
+                      │
+                      ▼
+[ Step 6b: Email Draft in Your Mailbox (only on your YES) ]
+  └─► Draft via IMAP or .eml file, CV + letter attached, never auto-sent
+                      │
+                      ▼
 [ Step 7: Central Application Tracker ]
   └─► Automatically appended to applications/applications_tracker.md
 ```
@@ -136,6 +140,7 @@ If your corporate device or environment restricts installing software:
 | :--- | :--- | :--- |
 | **Google Antigravity** | [`skills/job-hunter/SKILL.md`](skills/job-hunter/SKILL.md) | Loaded automatically in workspace, or copy to `~/.gemini/config/skills/` |
 | **Claude Code** | [`CLAUDE.md`](CLAUDE.md) | Loaded natively when running `claude` in repo root |
+| **OpenCode** | [`OPENCODE.md`](OPENCODE.md) | Loaded natively when running `opencode` in repo root |
 | **Cursor IDE** | [`.cursorrules`](.cursorrules) & [`.cursor/rules/`](.cursor/rules/job-tailor.mdc) | Loaded automatically in Cursor Composer & Chat (`Ctrl+L`) |
 | **Windsurf (Cascade)** | [`.windsurfrules`](.windsurfrules) | Loaded automatically by Cascade (`Ctrl+I`) |
 | **GitHub Copilot / Open Agents** | [`AGENTS.md`](AGENTS.md) | Standard cross-agent specification |
@@ -151,14 +156,17 @@ Job-Hunting-skill/
 ├── .cursor/rules/job-tailor.mdc       # Cursor MDC rules engine
 ├── .windsurfrules                     # Windsurf / Cascade configuration
 ├── CLAUDE.md                          # Claude Code native instructions
+├── OPENCODE.md                         # OpenCode native instructions
 ├── AGENTS.md                          # Cross-agent specification standard
 ├── SYSTEM_PROMPT.md                   # Standalone prompt for ChatGPT / Claude Web
+├── configuration4Draft.md             # Email draft setup guide (IMAP + .eml fallback)
 ├── README.md                          # Documentation & quickstart
 ├── LICENSE                            # MIT License
 ├── CONTRIBUTING.md                    # Community guidelines
 ├── .gitignore                         # Protects candidate profile & personal applications
 ├── my_profile/                        # Candidate Single Source of Truth
 │   ├── candidate_profile.example.md   # Universal template for any industry
+│   ├── email_config.example.json      # Email draft settings template (copy to email_config.json, never committed)
 │   ├── README.md                      # Onboarding guide (PDF drop vs prompt)
 │   └── old_cv/                        # Place old PDF/DOCX resumes here
 │       └── .gitkeep
@@ -177,6 +185,7 @@ Job-Hunting-skill/
 ├── tools/
 │   ├── setup_latex.py                 # Detects & auto-installs LaTeX compilers
 │   ├── compile_latex.py               # Auto-compiler with strict 1-page verification
+│   ├── create_email_draft.py          # Creates mailbox drafts via IMAP (.eml fallback), gated by user YES
 │   └── extract_profile.py             # Extracts text from PDF resumes
 └── applications/                      # Your generated job applications
     ├── .gitkeep
@@ -188,7 +197,7 @@ Job-Hunting-skill/
 ## 🔒 Privacy & Data Protection
 
 Your private career data is protected by design:
-- `.gitignore` automatically excludes `my_profile/candidate_profile.md`, `my_profile/old_cv/*`, and all individual folders inside `applications/`.
+- `.gitignore` automatically excludes `my_profile/candidate_profile.md`, `my_profile/email_config.json`, `my_profile/old_cv/*`, and all individual folders inside `applications/`.
 - You can freely commit and push improvements to your fork without leaking your contact details, target salaries, or application letters.
 
 ---

@@ -26,6 +26,18 @@ python tools/setup_latex.py
 
 ### 2. Tailoring an Application
 When the user gives a job offer or URL:
+
+> **Token-saving confirmation gates (mandatory):** do NOT run expensive steps
+> without explicit user YES. Ask:
+> 1. After fit analysis: `Want tailored CV? [y/n]` → only then generate CV.
+> 2. After CV compile: `Want cover letter? [y/n]` → only then generate letter.
+> 3. After compile(s): if the posting contains an email to apply to, ask
+>    `Found email <to>. Create a mail draft for you? [imap/eml/no]` → only
+>    then run `tools/create_email_draft.py` (with `--yes`). If no email is
+>    found, do NOT ask — end the workflow. Default provider is `eml`
+>    (zero-auth). Identity + IMAP come from `my_profile/email_config.json`
+>    (single source of truth, user setup in `configuration4Draft.md`).
+
 1. Conduct web search on the target company (business model, stack, leadership).
 2. Create folder: `applications/<Company_Name> - <Role_Title>/`
 3. Generate `job_offer.md` with the **30-Second Recruiter Phone Screen Cheat Sheet** and raw job description.
@@ -36,8 +48,13 @@ When the user gives a job offer or URL:
    python tools/compile_latex.py "applications/<Folder>/CV_<Firstname>_<Lastname>.tex"
    python tools/compile_latex.py "applications/<Folder>/Cover_Letter_<Firstname>_<Lastname>.tex"
    ```
-7. Output outreach email drafts (HR email, direct pitch to CTO/Hiring Manager, LinkedIn note).
-8. Update `applications/applications_tracker.md`.
+7. Output outreach email drafts (HR email, direct pitch to CTO/Hiring Manager, LinkedIn note) to `applications/<Folder>/outreach_emails.md`.
+8. Email draft creation (GATED — only after user picks `imap/eml`, never on `no`):
+   ```bash
+   python tools/create_email_draft.py --provider <choice> --yes --from-outreach "applications/<Folder>/outreach_emails.md" --attach "applications/<Folder>/CV_*.pdf" --attach "applications/<Folder>/Cover_*.pdf"
+   ```
+   Never auto-send; the user reviews the draft in their mailbox.
+9. Update `applications/applications_tracker.md`.
 
 ---
 

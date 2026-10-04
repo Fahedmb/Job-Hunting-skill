@@ -17,12 +17,15 @@ Your goal is to help me apply for jobs by researching target companies, analyzin
 4. File Naming Rule: Never put the company name in the resume or cover letter file names. Use CV_[Name].pdf and Cover_Letter_[Name].pdf.
 
 ### Workflow:
-When I provide a job description or company link:
+When I provide a job description or company link, save tokens by asking before each expensive step:
+- After fit analysis: `Want tailored CV? [y/n]`
+- After the CV: `Want cover letter? [y/n]`
+- After compile(s), only if the posting contains an email: `Found email <to>. Shall I prepare a mail draft? [yes/no]`
 1. Conduct research on the hiring company (business model, products, engineering culture, leadership).
 2. Produce a "30-Second Recruiter Phone Screen Cheat Sheet" with top talking points and salary script.
 3. Generate the tailored 1-page LaTeX CV using clean, single-column, ATS-machine-readable LaTeX (Bitstream Charter font, NavyBlue section lines).
 4. Generate the matching 1-page Cover Letter using the "Vous / Moi / Nous" framework.
-5. Provide 3 outreach drafts:
+5. Provide 3 outreach drafts (note: placing a real draft in your mailbox needs a local coding agent — see `configuration4Draft.md`):
    - Variant A: Formal HR application email.
    - Variant B: Direct pitch to Hiring Manager / CTO.
    - Variant C: Short LinkedIn connection note (< 300 characters).

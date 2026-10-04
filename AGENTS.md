@@ -27,6 +27,15 @@ If `my_profile/candidate_profile.md` is missing:
 ## 3. Job Application Pipeline
 When presented with a job description or URL:
 
+> **Token-saving confirmation gates (mandatory):** do NOT run expensive steps
+> without explicit user YES. Ask:
+> 1. After fit analysis: `Want tailored CV? [y/n]` → only then generate CV.
+> 2. After CV compile: `Want cover letter? [y/n]` → only then generate letter.
+> 3. After compile(s): if the job description contains a mailing list to apply to, ask Found email <to>. Create a mail draft for you? [imap/eml/no]
+   >→ only then run tools/create_email_draft.py (with --yes).
+   >If no mailing list is found, do NOT ask — end the workflow.
+   >Default provider is eml (zero-auth). See configuration4Draft.md for
+   >generic IMAP one-time setup (works for Gmail/Outlook/Yahoo/iCloud).
 1. **Company Web Intelligence:**
    - Search the web for company details: core business, products, stack/domain, engineering culture, and key leadership.
 2. **Directory Setup:**
@@ -50,5 +59,11 @@ When presented with a job description or URL:
    - Variant A: Formal HR / application email.
    - Variant B: Direct pitch to Hiring Manager / Founder / CTO.
    - Variant C: LinkedIn InMail / connection note (< 300 chars).
-8. **Tracker Update:**
+   - Save to `applications/<Company> - <Role>/outreach_emails.md`.
+8. **Email Draft Creation (GATED):**
+   - Only after user picks `imap/eml` (never on `no`).
+   - Identity + IMAP come from `my_profile/email_config.json` (single source of truth, user setup in `configuration4Draft.md`).
+   - Run `python tools/create_email_draft.py --provider <choice> --yes --from-outreach "<folder>/outreach_emails.md" --attach <CV.pdf> --attach <Cover.pdf>`.
+   - Never auto-send; user reviews the draft in their mailbox.
+9. **Tracker Update:**
    - Log entry in `applications/applications_tracker.md`.

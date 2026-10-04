@@ -1,0 +1,8 @@
+{
+  "from": "you@gmail.com",
+  "imap_host": "imap.gmail.com",
+  "imap_port": 993,
+  "imap_user": "you@gmail.com",
+  "imap_password": "xxxx-xxxx-xxxx-xxxx",
+  "imap_folder": "Drafts" // use "[Gmail]/Brouillons" for French Gmail accounts
+}

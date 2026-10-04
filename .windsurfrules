@@ -7,3 +7,5 @@
 - File names must never include company names (e.g. `CV_<Name>.pdf`, `Cover_Letter_<Name>.pdf`).
 - Verify LaTeX compiler availability. Use `python tools/compile_latex.py` to build PDFs. If missing, run `python tools/setup_latex.py` or inform the user about Overleaf.com.
 - Generate `job_offer.md` with 30-Second Recruiter Phone Screen Cheat Sheet and draft outreach emails.
+- Token-saving confirmation gates (ask, never assume YES): `Want tailored CV? [y/n]` after fit analysis; `Want cover letter? [y/n]` after CV compile; `Found email <to>. Create a mail draft for you? [imap/eml/no]` after compile(s) and only if the posting contains an email.
+- Email draft creation (GATED, never auto-send): identity + IMAP from `my_profile/email_config.json` (see `configuration4Draft.md`); run `python tools/create_email_draft.py --provider <choice> --yes --from-outreach "applications/<Folder>/outreach_emails.md" --attach <CV.pdf> --attach <Cover.pdf>`.
